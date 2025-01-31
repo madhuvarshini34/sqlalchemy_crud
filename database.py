@@ -1,14 +1,19 @@
+# database.py
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from config import DATABASE_URL
 
-# Database URL
-DATABASE_URL = "mysql+mysqlconnector://root:root@localhost/tution"
-
-# Create the SQLAlchemy engine and session
+# Create the database engine
 engine = create_engine(DATABASE_URL)
-Base = declarative_base()
+
+# Session configuration
 Session = sessionmaker(bind=engine)
 
-# This will create the tables if they don't exist
-Base.metadata.create_all(engine)
+# Ensure that all the tables are created
+def init_db():
+    from models import Base
+    Base.metadata.create_all(engine)
+
+# Initialize a session
+def get_session():
+    return Session()

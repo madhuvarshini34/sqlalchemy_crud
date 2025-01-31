@@ -1,16 +1,19 @@
+# models.py
 from sqlalchemy import Column, Integer, String, Date
-from database import Base  # Assuming you have your Base in the database.py file
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 class Student(Base):
     __tablename__ = 'student'
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
-    age = Column(Integer, nullable=False)
-    department = Column(String, nullable=False)
-    phonenumber = Column(String, nullable=False)  # Phonenumber is now a string
-    emailId = Column(String, nullable=False)  # Changed to emailId
-    dob = Column(Date, nullable=False)  # dob field to store the date of birth
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    age = Column(Integer)
+    department = Column(String)
+    phonenumber = Column(Integer)
+    emailId = Column(String)
+    dob = Column(Date)
 
     def __repr__(self):
-        return f"<Student(name={self.name}, age={self.age}, department={self.department}, phonenumber={self.phonenumber}, emailId={self.emailId}, dob={self.dob})>"
+        return f"<Student(name={self.name}, department={self.department})>"
